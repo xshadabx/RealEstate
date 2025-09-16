@@ -33,6 +33,7 @@ import {
   Upload
 } from "lucide-react";
 import LottiePlayer from "@/components/LottiePlayer";
+import { successAnimation } from "@/lib/lottie-animations";
 
 interface Project {
   id: string;
@@ -217,16 +218,7 @@ export default function BuilderInfoPage() {
             <Sparkles className="h-3 w-3" />
             AI Verified
           </Badge>
-          <LottiePlayer src={{
-            v: "5.7.6", fr: 30, ip: 0, op: 60, w: 50, h: 50, nm: "builder-badge", ddd: 0, assets: [],
-            layers: [{
-              ddd: 0, ind: 1, ty: 4, nm: "badge", sr: 1,
-              ks: { o: { a: 0, k: 100 }, r: { a: 0, k: 0 }, p: { a: 0, k: [25, 25, 0] }, a: { a: 0, k: [0, 0, 0] }, s: { a: 0, k: [100, 100, 100] }
-            }, shapes: [
-              { ty: "el", p: { a: 0, k: [0, 0] }, s: { a: 0, k: [20, 20] }, nm: "badge" },
-              { ty: "fl", c: { a: 0, k: [0.149, 0.388, 0.922, 1] }, o: { a: 0, k: 100 }, r: 1, bm: 0, nm: "fill" }
-            ], ip: 0, op: 60, st: 0, bm: 0
-          }} />
+          <LottiePlayer src={successAnimation} />
         </div>
       </div>
 

@@ -380,7 +380,7 @@ export default function VerificationDetailsModal({
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {tierInfo.benefits.map((benefit, index) => (
+                      {tierInfo.benefits.map((benefit: string, index: number) => (
                         <div key={index} className="flex items-center gap-3 p-3 border rounded-lg">
                           <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                             <CheckCircle className="h-4 w-4 text-green-600" />
@@ -485,7 +485,7 @@ export default function VerificationDetailsModal({
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-3">
-                          {nextTierInfo.requirements.map((requirement, index) => (
+                          {nextTierInfo.requirements.map((requirement: string, index: number) => (
                             <div key={index} className="flex items-center gap-3 p-3 border rounded-lg">
                               <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-xs font-semibold text-primary">{index + 1}</span>
@@ -504,7 +504,7 @@ export default function VerificationDetailsModal({
                       </CardHeader>
                       <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          {nextTierInfo.benefits.map((benefit, index) => (
+                          {nextTierInfo.benefits.map((benefit: string, index: number) => (
                             <div key={index} className="flex items-center gap-2 text-sm">
                               <Zap className="h-4 w-4 text-yellow-500" />
                               <span>{benefit}</span>

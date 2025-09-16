@@ -33,7 +33,7 @@ export default function BuyerHome() {
     rating: (4 + Math.random()).toFixed(1),
     isLiked: i % 3 === 0,
     isAIRecommended: i % 3 === 0,
-    trustTier: i % 4 === 0 ? 'PREMIUM' : i % 3 === 0 ? 'TRUSTED' : i % 2 === 0 ? 'VERIFIED' : 'UNVERIFIED',
+        trustTier: (i % 4 === 0 ? 'PREMIUM' : i % 3 === 0 ? 'TRUSTED' : i % 2 === 0 ? 'VERIFIED' : 'UNVERIFIED') as TrustTier,
     isAIEnhanced: i % 3 === 0,
     hasDuplicateCheck: i % 2 === 0,
   }));

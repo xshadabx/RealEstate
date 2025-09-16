@@ -39,6 +39,7 @@ import {
   Zap
 } from "lucide-react";
 import LottiePlayer from "@/components/LottiePlayer";
+import { newMessage } from "@/lib/lottie-animations";
 
 interface Complaint {
   id: string;
@@ -244,21 +245,7 @@ export default function ComplaintsPage() {
             <Sparkles className="h-3 w-3" />
             AI Assisted
           </Badge>
-          <LottiePlayer src={{
-            v: "5.7.6", fr: 30, ip: 0, op: 60, w: 50, h: 50, nm: "complaint-bell", ddd: 0, assets: [],
-            layers: [{
-              ddd: 0, ind: 1, ty: 4, nm: "bell", sr: 1,
-              ks: { 
-                o: { a: 0, k: 100 }, 
-                r: { a: 1, k: [{ i: { x: [0.667], y: [1] }, o: { x: [0.333], y: [0] }, t: 0, s: [0] }, { t: 15, s: [10] }, { t: 30, s: [0] }] }, 
-                p: { a: 0, k: [25, 25, 0] }, a: { a: 0, k: [0, 0, 0] }, 
-                s: { a: 0, k: [100, 100, 100] }
-              }, shapes: [
-                { ty: "el", p: { a: 0, k: [0, 0] }, s: { a: 0, k: [20, 20] }, nm: "bell" },
-                { ty: "fl", c: { a: 0, k: [0.149, 0.388, 0.922, 1] }, o: { a: 0, k: 100 }, r: 1, bm: 0, nm: "fill" }
-              ], ip: 0, op: 60, st: 0, bm: 0
-            }} 
-          />
+          <LottiePlayer src={newMessage} />
         </div>
       </div>
 
@@ -350,7 +337,7 @@ export default function ComplaintsPage() {
 
                 <div>
                   <label className="text-sm font-medium">Category</label>
-                  <Select value={newComplaint.category} onValueChange={(value) => setNewComplaint(prev => ({ ...prev, category: value }))}>
+                  <Select value={newComplaint.category} onValueChange={(value: string) => setNewComplaint(prev => ({ ...prev, category: value }))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
@@ -366,7 +353,7 @@ export default function ComplaintsPage() {
 
                 <div>
                   <label className="text-sm font-medium">Priority</label>
-                  <Select value={newComplaint.priority} onValueChange={(value) => setNewComplaint(prev => ({ ...prev, priority: value }))}>
+                  <Select value={newComplaint.priority} onValueChange={(value: string) => setNewComplaint(prev => ({ ...prev, priority: value }))}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>

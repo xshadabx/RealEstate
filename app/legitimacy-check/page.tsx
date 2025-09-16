@@ -329,14 +329,7 @@ export default function LegitimacyCheckPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h4 className="font-semibold mb-3">Upload Documents</h4>
-                  <Dropzone
-                    onDrop={handleDocumentUpload}
-                    accept={{
-                      'application/pdf': ['.pdf'],
-                      'image/*': ['.png', '.jpg', '.jpeg']
-                    }}
-                    maxFiles={10}
-                  />
+                  <Dropzone multiple />
                 </div>
                 <div>
                   <h4 className="font-semibold mb-3">Required Documents</h4>

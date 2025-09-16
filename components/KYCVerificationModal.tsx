@@ -33,6 +33,7 @@ import {
   Globe
 } from "lucide-react";
 import LottiePlayer from "@/components/LottiePlayer";
+import { loadingSpinner, successAnimation } from "@/lib/lottie-animations";
 import Dropzone from "@/components/Dropzone";
 
 interface KYCData {
@@ -322,7 +323,7 @@ export default function KYCVerificationModal({
                       </div>
                       <div>
                         <Label>ID Type</Label>
-                        <Select value={kycData.idType} onValueChange={(value) => setKYCData(prev => ({ ...prev, idType: value }))}>
+                        <Select value={kycData.idType} onValueChange={(value: string) => setKYCData(prev => ({ ...prev, idType: value }))}>
                           <SelectTrigger>
                             <SelectValue placeholder="Select ID type" />
                           </SelectTrigger>
@@ -363,7 +364,7 @@ export default function KYCVerificationModal({
                       </div>
                       <div>
                         <Label>State</Label>
-                        <Select value={kycData.state} onValueChange={(value) => setKYCData(prev => ({ ...prev, state: value }))}>
+                        <Select value={kycData.state} onValueChange={(value: string) => setKYCData(prev => ({ ...prev, state: value }))}>
                           <SelectTrigger>
                             <SelectValue placeholder="Select state" />
                           </SelectTrigger>
@@ -396,7 +397,7 @@ export default function KYCVerificationModal({
                         </div>
                         <div>
                           <Label>Annual Income</Label>
-                          <Select value={kycData.annualIncome} onValueChange={(value) => setKYCData(prev => ({ ...prev, annualIncome: value }))}>
+                          <Select value={kycData.annualIncome} onValueChange={(value: string) => setKYCData(prev => ({ ...prev, annualIncome: value }))}>
                             <SelectTrigger>
                               <SelectValue placeholder="Select income range" />
                             </SelectTrigger>
@@ -441,11 +442,7 @@ export default function KYCVerificationModal({
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <h4 className="font-semibold mb-3">ID Proof</h4>
-                        <Dropzone
-                          onDrop={(files) => handleDocumentUpload('idProof', files)}
-                          accept={{ 'image/*': ['.png', '.jpg', '.jpeg'], 'application/pdf': ['.pdf'] }}
-                          maxFiles={1}
-                        />
+                        <Dropzone />
                         {verificationStatus.documents.idProof && (
                           <div className="mt-2 p-2 border rounded-lg">
                             <p className="text-sm">{verificationStatus.documents.idProof.name}</p>
@@ -455,11 +452,7 @@ export default function KYCVerificationModal({
                       
                       <div>
                         <h4 className="font-semibold mb-3">Address Proof</h4>
-                        <Dropzone
-                          onDrop={(files) => handleDocumentUpload('addressProof', files)}
-                          accept={{ 'image/*': ['.png', '.jpg', '.jpeg'], 'application/pdf': ['.pdf'] }}
-                          maxFiles={1}
-                        />
+                        <Dropzone />
                         {verificationStatus.documents.addressProof && (
                           <div className="mt-2 p-2 border rounded-lg">
                             <p className="text-sm">{verificationStatus.documents.addressProof.name}</p>
@@ -472,11 +465,7 @@ export default function KYCVerificationModal({
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <h4 className="font-semibold mb-3">PAN Card</h4>
-                          <Dropzone
-                            onDrop={(files) => handleDocumentUpload('panCard', files)}
-                            accept={{ 'image/*': ['.png', '.jpg', '.jpeg'], 'application/pdf': ['.pdf'] }}
-                            maxFiles={1}
-                          />
+                          <Dropzone />
                           {verificationStatus.documents.panCard && (
                             <div className="mt-2 p-2 border rounded-lg">
                               <p className="text-sm">{verificationStatus.documents.panCard.name}</p>
@@ -486,11 +475,7 @@ export default function KYCVerificationModal({
                         
                         <div>
                           <h4 className="font-semibold mb-3">RERA Certificate</h4>
-                          <Dropzone
-                            onDrop={(files) => handleDocumentUpload('reraCertificate', files)}
-                            accept={{ 'image/*': ['.png', '.jpg', '.jpeg'], 'application/pdf': ['.pdf'] }}
-                            maxFiles={1}
-                          />
+                          <Dropzone />
                           {verificationStatus.documents.reraCertificate && (
                             <div className="mt-2 p-2 border rounded-lg">
                               <p className="text-sm">{verificationStatus.documents.reraCertificate.name}</p>
@@ -618,22 +603,7 @@ export default function KYCVerificationModal({
                 <Card>
                   <CardContent className="p-8 text-center">
                     <div className="w-24 h-24 mx-auto mb-6">
-                      <LottiePlayer src={{
-                        v: "5.7.6", fr: 30, ip: 0, op: 60, w: 96, h: 96, nm: "verification", ddd: 0, assets: [],
-                        layers: [{
-                          ddd: 0, ind: 1, ty: 4, nm: "shield-check", sr: 1,
-                          ks: { 
-                            o: { a: 0, k: 100 }, 
-                            r: { a: 0, k: 0 }, 
-                            p: { a: 0, k: [48, 48, 0] }, 
-                            a: { a: 0, k: [0, 0, 0] }, 
-                            s: { a: 1, k: [{ i: { x: [0.667], y: [1] }, o: { x: [0.333], y: [0] }, t: 0, s: [100, 100, 100] }, { t: 30, s: [110, 110, 100] }] }
-                          }, shapes: [
-                            { ty: "el", p: { a: 0, k: [0, 0] }, s: { a: 0, k: [30, 30] }, nm: "shield" },
-                            { ty: "fl", c: { a: 0, k: [0.149, 0.388, 0.922, 1] }, o: { a: 0, k: 100 }, r: 1, bm: 0, nm: "fill" }
-                          ], ip: 0, op: 60, st: 0, bm: 0
-                        }} 
-                      />
+                      <LottiePlayer src={loadingSpinner} />
                     </div>
                     <h3 className="text-xl font-semibold mb-2">AI Verification in Progress</h3>
                     <p className="text-muted-foreground mb-6">
@@ -682,16 +652,7 @@ export default function KYCVerificationModal({
                 <Card>
                   <CardContent className="p-8 text-center">
                     <div className="w-24 h-24 mx-auto mb-6">
-                      <LottiePlayer src={{
-                        v: "5.7.6", fr: 30, ip: 0, op: 60, w: 96, h: 96, nm: "success", ddd: 0, assets: [],
-                        layers: [{
-                          ddd: 0, ind: 1, ty: 4, nm: "checkmark", sr: 1,
-                          ks: { o: { a: 0, k: 100 }, r: { a: 0, k: 0 }, p: { a: 0, k: [48, 48, 0] }, a: { a: 0, k: [0, 0, 0] }, s: { a: 0, k: [100, 100, 100] }
-                        }, shapes: [
-                          { ty: "el", p: { a: 0, k: [0, 0] }, s: { a: 0, k: [30, 30] }, nm: "circle" },
-                          { ty: "fl", c: { a: 0, k: [0.2, 0.8, 0.2, 1] }, o: { a: 0, k: 100 }, r: 1, bm: 0, nm: "fill" }
-                        ], ip: 0, op: 60, st: 0, bm: 0
-                      }} />
+                      <LottiePlayer src={successAnimation} />
                     </div>
                     
                     <h3 className="text-2xl font-bold text-green-600 mb-2">Verification Complete!</h3>

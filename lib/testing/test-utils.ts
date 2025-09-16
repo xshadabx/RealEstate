@@ -1,5 +1,5 @@
+import React, { ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { ReactElement } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { User, UserRole } from '../auth';
 import { Property, Inquiry, Transaction } from '../database/schema';
@@ -100,11 +100,11 @@ export const createMockTransaction = (overrides: Partial<Transaction> = {}): Tra
 
 // Test wrapper with providers
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-      {children}
-    </ThemeProvider>
-  );
+  return React.createElement(ThemeProvider, {
+    attribute: "class",
+    defaultTheme: "light",
+    enableSystem: false
+  }, children);
 };
 
 const customRender = (
