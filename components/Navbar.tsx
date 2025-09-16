@@ -2,43 +2,56 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
-import { Home, Compass, PlusCircle, MessageSquare, User, PiggyBank } from "lucide-react";
+import LanguageSelector from "./LanguageSelector";
+import { Home, Compass, PlusCircle, MessageSquare, User, PiggyBank, Building2, Bot, Shield, MapPin, List } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/language-context";
 
-function getNavItems(pathname: string) {
-  const isBuyer = pathname.startsWith("/buyer");
-  const isSeller = pathname.startsWith("/seller");
-  const prefix = isBuyer ? "/buyer" : isSeller ? "/seller" : "";
+function getNavItems(pathname: string, userType: string | null) {
+  // If authenticated, always use the user's context regardless of current pathname
+  if (userType === 'buyer' || userType === 'seller') {
+    const prefix = userType === 'buyer' ? "/buyer" : "/seller";
 
-  if (isSeller) {
-    // JSON: Seller navbar -> Home, Create, Messages, E-SIP, Profile
-    return [
-      { href: `${prefix}`, label: "Home", icon: Home },
-      { href: `${prefix}/create`, label: "Create", icon: PlusCircle },
-      { href: `${prefix}/messages`, label: "Messages", icon: MessageSquare },
-      { href: `${prefix}/e-sip`, label: "E-SIP", icon: PiggyBank },
-      { href: `${prefix}/profile`, label: "Profile", icon: User },
-    ];
+    if (userType === 'seller') {
+      // Seller navbar with consistent order
+      return [
+        { href: `${prefix}`, label: "Home", icon: Home },
+        { href: `${prefix}/create`, label: "Create", icon: PlusCircle },
+        { href: `${prefix}/e-sip`, label: "E-SIP", icon: PiggyBank },
+        { href: "/map-insights", label: "Map Insights", icon: MapPin },
+        { href: "/ai-demo", label: "Aisha", icon: Bot },
+        { href: "/listings", label: "Listings", icon: List },
+        { href: `${prefix}/messages`, label: "Messages", icon: MessageSquare },
+        { href: "/trust-profile", label: "Personal Profile", icon: User },
+      ];
+    }
+
+    if (userType === 'buyer') {
+      // Buyer navbar with exact order requested: Home, Explore, E-SIP, Map Insights, Aisha, Listings, Messages, Personal Profile
+      return [
+        { href: `${prefix}`, label: "Home", icon: Home },
+        { href: `${prefix}/explore`, label: "Explore", icon: Compass },
+        { href: `${prefix}/e-sip`, label: "E-SIP", icon: PiggyBank },
+        { href: "/map-insights", label: "Map Insights", icon: MapPin },
+        { href: "/ai-demo", label: "Aisha", icon: Bot },
+        { href: "/listings", label: "Listings", icon: List },
+        { href: `${prefix}/messages`, label: "Messages", icon: MessageSquare },
+        { href: "/trust-profile", label: "Personal Profile", icon: User },
+      ];
+    }
   }
 
-  // JSON: Buyer navbar -> Home, Explore, Messages, E-SIP, Profile (no Create)
-  if (isBuyer) {
-    return [
-      { href: `${prefix}`, label: "Home", icon: Home },
-      { href: `${prefix}/explore`, label: "Explore", icon: Compass },
-      { href: `${prefix}/messages`, label: "Messages", icon: MessageSquare },
-      { href: `${prefix}/e-sip`, label: "E-SIP", icon: PiggyBank },
-      { href: `${prefix}/profile`, label: "Profile", icon: User },
-    ];
-  }
-
-  // Global (unauth/landing) -> original items minus Create (Create is seller-only)
+  // Global (unauth/landing) navbar - only shown when not authenticated
   return [
-    { href: `/`, label: "Home", icon: Home },
+    { href: `/`, label: "Login", icon: Home },
     { href: `/explore`, label: "Explore", icon: Compass },
     { href: `/e-sip`, label: "E-SIP", icon: PiggyBank },
+    { href: `/map-insights`, label: "Map Insights", icon: MapPin },
+    { href: `/ai-demo`, label: "Aisha", icon: Bot },
+    { href: `/listings`, label: "Listings", icon: List },
     { href: `/messages`, label: "Messages", icon: MessageSquare },
     { href: `/profile`, label: "Profile", icon: User },
   ];
@@ -46,7 +59,15 @@ function getNavItems(pathname: string) {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const items = getNavItems(pathname);
+  const [userType, setUserType] = useState<string | null>(null);
+
+  // Get user type from localStorage on component mount and when it changes
+  useEffect(() => {
+    const storedUserType = localStorage.getItem('userType');
+    setUserType(storedUserType);
+  }, []);
+
+  const items = getNavItems(pathname, userType);
 
   return (
     <div className="sticky top-0 z-40 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
@@ -82,6 +103,7 @@ export default function Navbar() {
           })}
         </nav>
         <div className="flex items-center gap-2">
+          <LanguageSelector />
           <ThemeToggle />
         </div>
       </div>

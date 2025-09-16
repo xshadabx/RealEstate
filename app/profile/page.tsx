@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function ProfilePage() {
-  const [bio, setBio] = useState("Explorer of beautiful homes. Photographer.");
+  const [bio] = useState("Explorer of beautiful homes. Photographer.");
   const posts = Array.from({ length: 9 }).map((_, i) => i + 1);
   return (
     <main className="mx-auto max-w-4xl p-4">

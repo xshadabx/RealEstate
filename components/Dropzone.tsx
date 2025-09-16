@@ -29,13 +29,14 @@ export default function Dropzone({ multiple = true }: { multiple?: boolean }) {
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
-          <p>Drag 'n' drop files here, or click to select files</p>
+          <p>Drag &apos;n&apos; drop files here, or click to select files</p>
         )}
       </div>
       {files.length > 0 && (
         <div className="mt-3 grid grid-cols-3 gap-3">
           {files.map((f) => (
             <div key={f.id} className="aspect-video w-full rounded-md overflow-hidden border">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={f.preview} alt={f.file.name} className="h-full w-full object-cover" />
             </div>
           ))}

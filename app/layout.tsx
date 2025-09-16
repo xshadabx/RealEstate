@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
 import Navbar from "@/components/Navbar";
 import { LocationProvider } from "@/lib/location-context";
+import { LanguageProvider } from "@/lib/language-context";
+import { ConditionalNavbar } from "@/components/ConditionalNavbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,10 +32,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
-          <LocationProvider>
-            <Navbar />
-            {children}
-          </LocationProvider>
+          <LanguageProvider>
+            <LocationProvider>
+              <ConditionalNavbar />
+              {children}
+            </LocationProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

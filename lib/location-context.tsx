@@ -27,13 +27,13 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
   const [permission, setPermission] = useState<PermissionState | "unsupported" | "unknown">("unknown");
 
   useEffect(() => {
-    if (typeof navigator === "undefined" || !(navigator as any).permissions) {
+    if (typeof navigator === "undefined" || !(navigator as unknown as { permissions?: unknown }).permissions) {
       setPermission("unsupported");
       return;
     }
-    (navigator as any).permissions
+    (navigator as unknown as { permissions: { query: (params: { name: PermissionName }) => Promise<{ state: PermissionState; onchange: () => void }> } }).permissions
       .query({ name: "geolocation" as PermissionName })
-      .then((status: any) => {
+      .then((status: { state: PermissionState; onchange: () => void }) => {
         setPermission(status.state);
         status.onchange = () => setPermission(status.state);
       })
